@@ -1,103 +1,95 @@
+class Pokemon {
+    constructor(nombre, HPmaximo, imagenFrontal) {
+        this.nombre = nombre;
+        this.HPmaximo = HPmaximo;
+        this.HPactual = HPmaximo; // Empieza con el HP máximo
+        this.imagenFrontal = imagenFrontal;
+    }
+
+    obtenerInfo() {
+        return {
+            nombre: this.nombre,
+            HP: this.HPactual,
+            imagen: this.imagenFrontal
+        };
+    }
+}
+
+
+class Movimiento {
+    constructor(nombre, tipo, potencia) {
+        this.nombre = nombre;     // Nombre del movimiento        // Tipo del movimiento (e.g., fuego, agua)
+        this.potencia = potencia; // Potencia del movimiento
+    }
+}
+
+
+
 // Movimientos
-const placaje = new Movimiento("Placaje", "normal", 40);
-const golpeCuerpo = new Movimiento("Golpe Cuerpo", "normal", 80);
-const lanzallamas = new Movimiento("Lanzallamas", "fuego", 90);
-const hidrobomba = new Movimiento("Hidrobomba", "agua", 110);
-const trueno = new Movimiento("Trueno", "eléctrico", 90);
-const hojaAfilada = new Movimiento("Hoja Afilada", "planta", 55);
-const psicoCorte = new Movimiento("Psico-Corte", "psíquico", 70);
-const giroFuego = new Movimiento("Giro Fuego", "fuego", 35);
-const rayo = new Movimiento("Rayo", "eléctrico", 90);
-const golpeAereo = new Movimiento("Golpe Aéreo", "volador", 60);
-const hiperRayo = new Movimiento("Hiper Rayo", "normal", 150);
-const alaDeAcero = new Movimiento("Ala de Acero", "acero", 70);
-const terremoto = new Movimiento("Terremoto", "tierra", 100);
-const fuerzaBruta = new Movimiento("Fuerza Bruta", "lucha", 120);
-const chorroDeAgua = new Movimiento("Chorro de Agua", "agua", 40);
+const placaje = new Movimiento("Placaje",  40);
+const golpeCuerpo = new Movimiento("Golpe Cuerpo",  80);
+const lanzallamas = new Movimiento("Lanzallamas",  90);
+const hidrobomba = new Movimiento("Hidrobomba",  110);
+const trueno = new Movimiento("Trueno",  90);
+const hojaAfilada = new Movimiento("Hoja Afilada",  55);
+const psicoCorte = new Movimiento("Psico-Corte",  70);
+const giroFuego = new Movimiento("Giro Fuego", 35);
+const rayo = new Movimiento("Rayo",  90);
+const golpeAereo = new Movimiento("Golpe Aéreo", 60);
+const hiperRayo = new Movimiento("Hiper Rayo",  150);
+const alaDeAcero = new Movimiento("Ala de Acero",  70);
+const terremoto = new Movimiento("Terremoto",  100);
+const fuerzaBruta = new Movimiento("Fuerza Bruta",  120);
+const chorroDeAgua = new Movimiento("Chorro de Agua",  40);
 
-// Pokémon con imágenes y movimientos
-const absol = new Pokemon(
-    "Absol", "siniestro", 50, 65, 130, 60, 75, 
-    [golpeCuerpo, hiperRayo],
-    "../_images/_pokemon/_front/absol.png", null,
-    "../_images/_ico/_pokemon/absol.png"
-);
-const arceus = new Pokemon(
-    "Arceus", "normal", 100, 120, 120, 120, 120, 
-    [placaje, fuerzaBruta],
-    null, "../_images/_pokemon/_back/arceus.png",
-    "../_images/_ico/_pokemon/arceus.png"
-);
-const blastoise = new Pokemon(
-    "Blastoise", "agua", 75, 79, 83, 100, 78, 
-    [hidrobomba, chorroDeAgua],
-    "../_images/_pokemon/_front/blastoise.png", null,
-    "../_images/_ico/_pokemon/blastoise.png"
-);
-const charizard = new Pokemon(
-    "Charizard", "fuego", 78, 78, 84, 78, 100, 
-    [lanzallamas, giroFuego],
-    null, "../_images/_pokemon/_back/charizard.png",
-    "../_images/_ico/_pokemon/charizard.png"
-);
-const dragonite = new Pokemon(
-    "Dragonite", "dragón", 91, 134, 95, 100, 80, 
-    [hiperRayo, golpeAereo],
-    null, "../_images/_pokemon/_back/dragonite.png",
-    "../_images/_ico/_pokemon/dragonite.png"
-);
-const gyarados = new Pokemon(
-    "Gyarados", "agua", 95, 125, 79, 100, 81, 
-    [hidrobomba, placaje],
-    null, "../_images/_pokemon/_back/gyarados.png",
-    ""
-);
-const jolteon = new Pokemon(
-    "Jolteon", "eléctrico", 65, 65, 110, 60, 130, 
-    [trueno, rayo],
-    "../_images/_pokemon/_front/jolteon.png", null,
-    "../_images/_ico/_pokemon/jolteon.png"
-);
-const magmar = new Pokemon(
-    "Magmar", "fuego", 65, 95, 57, 85, 93, 
-    [lanzallamas, golpeCuerpo],
-    "../_images/_pokemon/_front/magmar.png", null,
-    "../_images/_ico/_pokemon/magmar.png"
-);
-const magnemite = new Pokemon(
-    "Magnemite", "eléctrico", 25, 35, 70, 95, 45, 
-    [rayo, placaje],
-    null, "../_images/_pokemon/_back/magnemite.png",
-    "../_images/_ico/_pokemon/magnemite.png"
-);
-const mewtwo = new Pokemon(
-    "Mewtwo", "psíquico", 106, 110, 90, 90, 130, 
-    [psicoCorte, hiperRayo],
-    null, "../_images/_pokemon/_back/mewtwo.png",
-    "../_images/_ico/_pokemon/mewtwo.png"
-);
-const pidgeot = new Pokemon(
-    "Pidgeot", "volador", 83, 80, 75, 70, 101, 
-    [golpeAereo, alaDeAcero],
-    "../_images/_pokemon/_front/pidgeot.png", null,
-    "../_images/_ico/_pokemon/pidgeot.png"
-);
-const raichu = new Pokemon(
-    "Raichu", "eléctrico", 60, 90, 55, 50, 110, 
-    [trueno, rayo],
-    null, "../_images/_pokemon/_back/raichu.png",
-    "../_images/_ico/_pokemon/raichu.png"
-);
-const torterra = new Pokemon(
-    "Torterra", "planta", 95, 109, 105, 85, 56, 
-    [terremoto, hojaAfilada],
-    "../_images/_pokemon/_front/torterra.png", null,
-    "../_images/_ico/_pokemon/torterra.png"
-);
-const vaporeon = new Pokemon(
-    "Vaporeon", "agua", 130, 65, 60, 95, 65, 
-    [chorroDeAgua, hidrobomba],
-    "../_images/_pokemon/_front/vaporeon.png", null,
-    "../_images/_ico/_pokemon/vaporeon.png"
-);
+const arceus = new Pokemon('Arceus', 100, '_images/_pokemon/_back/ARCEUS.png');
+const charizard = new Pokemon('Charizard', 100, '_images/_pokemon/_back/CHARIZARD.png');
+const dragonite = new Pokemon('Dragonite', 100, '_images/_pokemon/_back/DRAGONITE.png');
+const gyarados = new Pokemon('Gyarados', 100, '_images/_pokemon/_back/GYARADOS.png');
+const magnemite = new Pokemon('Magnemite', 100, '_images/_pokemon/_back/MAGNEMITE.png');
+const mewtwo = new Pokemon('Mewtwo', 100, '_images/_pokemon/_back/MEWTWO.png');
+const raichu = new Pokemon('Raichu', 100, '_images/_pokemon/_back/RAICHU.png');
 
+const absol = new Pokemon('Absol', 100, '_images/_pokemon/_front/ABSOL.png');
+const blastoise = new Pokemon('Blastoise', 100, '_images/_pokemon/_front/BLASTOISE.png');
+const jolteon = new Pokemon('Jolteon', 100, '_images/_pokemon/_front/JOLTEON.png');
+const magmar = new Pokemon('Magmar', 100, '_images/_pokemon/_front/MAGMAR.png');
+const pidgeot = new Pokemon('Pidgeot', 100, '_images/_pokemon/_front/PIDGEOT.png');
+const torterra = new Pokemon('Torterra', 100, '_images/_pokemon/_front/TORTERRA.png');
+const vaporeon = new Pokemon('Vaporeon', 100, '_images/_pokemon/_front/VAPOREON.png');
+
+
+// Crear un arreglo con todos los Pokémon
+const pokemonsPropios = [arceus, charizard, dragonite, gyarados, magnemite, mewtwo, raichu];
+const pokemonsRivales = [absol, blastoise, jolteon, magmar, pidgeot, torterra, vaporeon];
+
+// Función para seleccionar el Pokémon y mostrar sus atributos
+function seleccionarPokemon(tipo, indice) {
+    let pokemonSeleccionado;
+    
+    // Seleccionar el Pokémon dependiendo del tipo
+    if (tipo === "propio") {
+        pokemonSeleccionado = pokemonsPropios[indice];
+    } else {
+        pokemonSeleccionado = pokemonsRivales[indice];
+    }
+    
+    const info = pokemonSeleccionado.obtenerInfo();
+    console.log(info);  // Verificar que se obtienen los datos correctamente
+    
+    if (tipo === "propio") {
+        document.querySelector(".player .name").textContent = info.nombre;
+        document.getElementById("myHP").textContent = `HP: ${info.HP}`;
+        document.querySelector(".player .pokemon").src = info.imagen;
+    } else {
+        document.querySelector(".opponent .name").textContent = info.nombre;
+        document.getElementById("apHP").textContent = `HP: ${info.HP}`;
+        document.querySelector(".opponent .pokemon").src = info.imagen;
+    }
+}
+
+window.onload = function() {
+    // Selecciona un Pokémon por defecto al cargar la página
+    seleccionarPokemon("propio", 0); // Aquí "propio" y 0 son solo un ejemplo
+    seleccionarPokemon("rival", 0); // Similar para el rival
+};
