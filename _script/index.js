@@ -1,7 +1,7 @@
 class Movimiento {
     constructor(nombre, potencia) {
-        this.nombre = nombre; // Nombre del movimiento
-        this.potencia = potencia; // Potencia del movimiento
+      this.nombre = nombre;
+      this.potencia = potencia;
     }
 }
 
