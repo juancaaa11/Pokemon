@@ -159,18 +159,17 @@ function seleccionarPokemon(tipo, indice) {
 
 // Función para iniciar la batalla
 function Continua() {
-
-    if (batallaTerminada){
-
-        resetearEstado;
-        console.log("prueba")
-
+    if (batallaTerminada) {
+        resetearEstado();
+        console.log("prueba");
     }
-
 
     if (!batallaIniciada) {
         batallaIniciada = true;
         console.log("La batalla comienza!");
+
+        // Ocultar el botón de "Continuar" al comenzar la batalla
+        document.getElementById("botonContinuar").style.display = "none";
 
         // Inicia el primer turno del jugador
         mensajeTurno("Es tu turno!");
@@ -413,32 +412,24 @@ function Curarse() {
 
 // Función para el botón de "Huir"
 function Salir() {
-    if (batallaTerminada) {
-        mensajeTurno("La batalla ya ha terminado. Empieza una nueva.");
-        resetearEstado();
-        return;
-    }
-
-    // Marcar que el jugador ha huido
     if (!batallaTerminada) {
         batallaTerminada = true; // Marcar la batalla como terminada
         mensajeTurno("Has huido de la batalla.");
 
-        // Efecto visual o sonoro de huida (opcional)
+        // Opcional: reproducir un sonido de huida
         const audioEscape = new Audio('_sounds/scape.ogg'); // Ruta del sonido de huida
         audioEscape.volume = 0.3;
         audioEscape.play().catch(error => {
             console.log("Error al reproducir el sonido:", error);
         });
 
+        // Llamar a la función que reinicia el estado
+        
     }
-    
-    // Llamar a la función que reinicia el estado
+
+    // Mostrar el botón de "Continuar" nuevamente para que se pueda iniciar una nueva batalla
+    document.getElementById("botonContinuar").style.display = "inline-block";
     resetearEstado();
-
-
-    // Opcional: permitir la selección de un nuevo Pokémon
-    // seleccionarPokemon('propio', 0); // Re-seleccionar el primer Pokémon si lo deseas
 }
 
 function resetearEstado() {
