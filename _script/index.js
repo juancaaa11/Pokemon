@@ -49,7 +49,7 @@ const chorroDeAgua = new Movimiento("Chorro Agua", 20);
 
 // Creación de los Pokémon
 // Creación de los Pokémon con estadísticas de ataque y defensa
-const arceus = new Pokemon('Arceus', 100, '_images/_pokemon/_back/ARCEUS.png', '_sounds/_pokemon/ARCEUS.ogg', hiperRayo, fuerzaBruta, 120, 120);
+const arceus = new Pokemon('Arceus', 100, '_images/_pokemon/_back/ARCEUS.png', '_sounds/_pokemon/ARCEUS.ogg', hiperRayo, fuerzaBruta, 100, 85);
 const charizard = new Pokemon('Charizard', 100, '_images/_pokemon/_back/CHARIZARD.png', '_sounds/_pokemon/CHARIZARD.ogg', lanzallamas, alaDeAcero, 84, 78);
 const dragonite = new Pokemon('Dragonite', 100, '_images/_pokemon/_back/DRAGONITE.png', '_sounds/_pokemon/DRAGONITE.ogg', golpeAereo, hiperRayo, 134, 95);
 const gyarados = new Pokemon('Gyarados', 100, '_images/_pokemon/_back/GYARADOS.png', '_sounds/_pokemon/GYARADOS.ogg', hidrobomba, terremoto, 125, 79);
@@ -77,27 +77,34 @@ let batallaIniciada = false;
 let puedeCurarse = true;  // Solo se puede curar una vez
 let batallaTerminada = false;
 let haCurado = false; // Estado para verificar si la IA ya se ha curado
+let turnoRivalEnCurso = false;
+
 
 // Función para calcular el daño de un ataque
 function calcularDanio(atacante, defensor, movimiento) {
     const ataque = atacante.estadisticas.ataque;
     const defensa = defensor.estadisticas.defensa;
-    // Disminuir aún más el divisor en el cálculo de danioBase
-    const danioBase = movimiento.potencia / 3.5;  // Mayor daño base
+
+    // Disminuir aún más el divisor en el cálculo de danioBase para aumentar el daño base
+    const danioBase = movimiento.potencia / 2.5;  // Aumentar el daño base (reducir divisor)
 
     // Factor aleatorio con aún más variabilidad, ajustado a un rango mayor
-    const factorAleatorio = Math.random() * (1.2 - 0.9) + 0.9; // Aumentar el rango de aleatoriedad
+    const factorAleatorio = Math.random() * (1.5 - 0.7) + 0.7; // Aumentar el rango de aleatoriedad
 
     // Ajustar la fórmula para que la defensa tenga aún menos impacto
-    const danio = Math.floor((ataque / (defensa * 1.5)) * danioBase * factorAleatorio);  // Menor impacto de la defensa
+    const danio = Math.floor((ataque / (defensa * 1.2)) * danioBase * factorAleatorio);  // Menor impacto de la defensa
 
     return danio;
 }
 
 
 
+
 // Función para seleccionar el Pokémon y mostrar sus atributos
 function seleccionarPokemon(tipo, indice) {
+
+    if (!batallaIniciada){
+
     let pokemonSeleccionado;
 
     // Restaurar HP de todos los Pokémon (propios y rivales) al máximo
@@ -145,11 +152,20 @@ function seleccionarPokemon(tipo, indice) {
     audio.play().catch(error => {
         console.log("Error al reproducir el sonido:", error);
     });
+
+    }
 }
 
 
 // Función para iniciar la batalla
 function Continua() {
+
+    if (batallaTerminada){
+
+        resetearEstado;
+        console.log("prueba")
+
+    }
 
 
     if (!batallaIniciada) {
@@ -165,6 +181,25 @@ function Continua() {
         audioBatalla.play().catch(error => {
             console.log("Error al reproducir la música:", error);
         });
+    }
+}
+
+function actualizarBotonesAccion() {
+    const accion1 = document.querySelector("button[onclick='accion1()']");
+    const accion2 = document.querySelector("button[onclick='accion2()']");
+    const curarse = document.querySelector("button[onclick='Curarse()']");
+    const continua = document.querySelector("button[onclick='Continua()']");
+
+    if (turnoRivalEnCurso) {
+        // Desactiva los botones de acción y curarse durante el turno del rival
+        accion1.disabled = true;
+        accion2.disabled = true;
+        curarse.disabled = true;
+    } else {
+        // Activa los botones cuando el turno del rival ha terminado
+        accion1.disabled = false;
+        accion2.disabled = false;
+        curarse.disabled = false;
     }
 }
 
@@ -225,7 +260,8 @@ function atacar(pokemonAtacante, movimiento) {
     // Revisar si el Pokémon rival ha caído
     if (pokemonRivalSeleccionado.HPactual <= 0) {  // Asegúrate de revisar HPactual, no HP
         mensajeTurno(`${pokemonRivalSeleccionado.nombre} ha caído! Has ganado la batalla.`);
-        reiniciarBatalla;
+        batallaTerminada = true;
+       
     } else {
         // Si no ha caído, es el turno del rival
         turnoRival();
@@ -243,6 +279,12 @@ function turnoRival() {
     }
 
     if (batallaTerminada) return;
+
+    
+    // Indicar que el turno del rival está en curso
+    turnoRivalEnCurso = true;
+
+    actualizarBotonesAccion();
 
     // Elegir un movimiento aleatorio del Pokémon rival
     const movimientosRival = [pokemonRivalSeleccionado.movimiento1, pokemonRivalSeleccionado.movimiento2];
@@ -268,11 +310,16 @@ function turnoRival() {
         // Verificar si el jugador ha perdido
         if (pokemonPropioSeleccionado.HPactual <= 0) {
             mensajeTurno(`${pokemonPropioSeleccionado.nombre} ha caído! Has perdido la batalla.`);
-             // Asegúrate de que esta línea tiene los paréntesis para ejecutar la función
-        
+            batallaTerminada = true;
         }
 
+        // Indicar que el turno del rival ha terminado
+        turnoRivalEnCurso = false;
+        actualizarBotonesAccion();
+
     }, 1000);  // Pausa antes de que el rival ataque
+
+   
 }
 
 
@@ -284,6 +331,8 @@ function mensajeTurno(mensaje) {
 
 // Función para el botón de "Acción 1" (Primer movimiento)
 function accion1() {
+
+
     if (batallaTerminada) {
         mensajeTurno("La batalla ha terminado. Empieza una nueva.");
         return;
@@ -297,6 +346,7 @@ function accion1() {
         console.log("No se ha seleccionado un Pokémon propio o la batalla no ha comenzado.");
         mensajeTurno("Por favor, selecciona un Pokémon y comienza la batalla.");
     }
+
 }
 
 // Función para el botón de "Acción 2" (Segundo movimiento)
@@ -318,27 +368,46 @@ function accion2() {
 
 // Función para el botón de "Curarse"
 function Curarse() {
+
     if (batallaTerminada) {
         mensajeTurno("La batalla ha terminado. Empieza una nueva.");
         return;
+
+
     }
 
-    if (puedeCurarse) {
 
-        const audioBatalla = new Audio('_sounds/healing.ogg'); // Ruta de la canción
-        audioBatalla.volume = 0.3; // Ajusta el volumen
-        audioBatalla.play().catch(error => {
-        console.log("Error al reproducir la música:", error);
-        });
+    if (!batallaTerminada){
 
-        const curacion = Math.floor(pokemonPropioSeleccionado.HPactual * 0.3); // Recupera 50% de su HP máximo
-        pokemonPropioSeleccionado.HPactual = Math.min(pokemonPropioSeleccionado.HPmaximo, pokemonPropioSeleccionado.HPactual + curacion); // Asegura que no supere el HP máximo
-        document.getElementById("myHP").textContent = `${pokemonPropioSeleccionado.HPactual} / ${pokemonPropioSeleccionado.HPmaximo}`;
-        mensajeTurno(`${pokemonPropioSeleccionado.nombre} se ha curado y recuperó ${curacion} HP.`);
-        puedeCurarse = false;  // Solo se puede curar una vez por batalla
-    } else {
-        mensajeTurno("Ya has usado la curación en esta batalla.");
+        if (batallaIniciada){
+
+        if (pokemonPropioSeleccionado.HPactual < 100 ){
+
+        if (puedeCurarse) {
+
+            const audioBatalla = new Audio('_sounds/healing.ogg'); // Ruta de la canción
+            audioBatalla.volume = 0.3; // Ajusta el volumen
+            audioBatalla.play().catch(error => {
+            console.log("Error al reproducir la música:", error);
+            });
+    
+            const curacion = Math.floor(pokemonPropioSeleccionado.HPactual * 0.3); // Recupera 30% de su HP máximo
+            pokemonPropioSeleccionado.HPactual = Math.min(pokemonPropioSeleccionado.HPmaximo, pokemonPropioSeleccionado.HPactual + curacion); // Asegura que no supere el HP máximo
+            document.getElementById("myHP").textContent = `${pokemonPropioSeleccionado.HPactual} / ${pokemonPropioSeleccionado.HPmaximo}`;
+            mensajeTurno(`${pokemonPropioSeleccionado.nombre} se ha curado y recuperó ${curacion} HP.`);
+            puedeCurarse = false;  // Solo se puede curar una vez por batalla
+        } else {
+            mensajeTurno("Ya has usado la curación en esta batalla.");
+        }
+
+        } else {
+
+            mensajeTurno("Tienes el HP Maximo");
+        }
     }
+    }
+
+
 }
 
 
@@ -346,6 +415,7 @@ function Curarse() {
 function Salir() {
     if (batallaTerminada) {
         mensajeTurno("La batalla ya ha terminado. Empieza una nueva.");
+        resetearEstado();
         return;
     }
 
@@ -366,6 +436,7 @@ function Salir() {
     // Llamar a la función que reinicia el estado
     resetearEstado();
 
+
     // Opcional: permitir la selección de un nuevo Pokémon
     // seleccionarPokemon('propio', 0); // Re-seleccionar el primer Pokémon si lo deseas
 }
@@ -373,11 +444,11 @@ function Salir() {
 function resetearEstado() {
     // Restaurar los HPs de todos los Pokémon al máximo
     pokemonsPropios.forEach(pokemon => {
-        pokemon.HP = pokemon.HPmaximo; // Restaurar el HP de cada Pokémon propio
+        pokemon.HPactual = pokemon.HPmaximo; // Restaurar el HP de cada Pokémon propio
     });
     
     pokemonsRivales.forEach(pokemon => {
-        pokemon.HP = pokemon.HPmaximo; // Restaurar el HP de cada Pokémon rival
+        pokemon.HPactual = pokemon.HPmaximo; // Restaurar el HP de cada Pokémon rival
     });
 
     // Restablecer las variables de batalla
