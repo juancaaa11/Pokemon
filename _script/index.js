@@ -200,6 +200,12 @@ function atacar(pokemonAtacante, movimiento) {
         return;
     }
 
+    const audioEscape = new Audio('_sounds/_batalla/battledamagenormal.ogg'); // Ruta del sonido de huida
+        audioEscape.volume = 0.3;
+        audioEscape.play().catch(error => {
+            console.log("Error al reproducir el sonido:", error);
+        });
+
     console.log(pokemonRivalSeleccionado.HPactual)
     console.log(pokemonAtacante.HPactual)
 
@@ -262,10 +268,8 @@ function turnoRival() {
         // Verificar si el jugador ha perdido
         if (pokemonPropioSeleccionado.HPactual <= 0) {
             mensajeTurno(`${pokemonPropioSeleccionado.nombre} ha caído! Has perdido la batalla.`);
-            reiniciarBatalla;
-
-            // Continuar la batalla si ninguno de los dos ha caído
-            mensajeTurno("Es tu turno!");
+             // Asegúrate de que esta línea tiene los paréntesis para ejecutar la función
+        
         }
 
     }, 1000);  // Pausa antes de que el rival ataque
@@ -320,6 +324,13 @@ function Curarse() {
     }
 
     if (puedeCurarse) {
+
+        const audioBatalla = new Audio('_sounds/healing.ogg'); // Ruta de la canción
+        audioBatalla.volume = 0.3; // Ajusta el volumen
+        audioBatalla.play().catch(error => {
+        console.log("Error al reproducir la música:", error);
+        });
+
         const curacion = Math.floor(pokemonPropioSeleccionado.HPactual * 0.3); // Recupera 50% de su HP máximo
         pokemonPropioSeleccionado.HPactual = Math.min(pokemonPropioSeleccionado.HPmaximo, pokemonPropioSeleccionado.HPactual + curacion); // Asegura que no supere el HP máximo
         document.getElementById("myHP").textContent = `${pokemonPropioSeleccionado.HPactual} / ${pokemonPropioSeleccionado.HPmaximo}`;
