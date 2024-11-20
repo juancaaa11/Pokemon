@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Pokemon';
-    src: url("_fonts/power clear.ttf");
+    src: url("fonts/power clear.ttf");
 }
 
 @font-face {
     font-family: 'PokemonNegrita';
-    src: url("_fonts/power clear bold.ttf");
+    src: url("fonts/power clear bold.ttf");
 }
 
 * {

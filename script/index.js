@@ -49,21 +49,21 @@ const chorroDeAgua = new Movimiento("Chorro Agua", 20);
 
 // Creación de los Pokémon
 // Creación de los Pokémon con estadísticas de ataque y defensa
-const arceus = new Pokemon('Arceus', 100, '_images/_pokemon/_back/ARCEUS.png', '_sounds/_pokemon/ARCEUS.ogg', hiperRayo, fuerzaBruta, 100, 85);
-const charizard = new Pokemon('Charizard', 100, '_images/_pokemon/_back/CHARIZARD.png', '_sounds/_pokemon/CHARIZARD.ogg', lanzallamas, alaDeAcero, 84, 78);
-const dragonite = new Pokemon('Dragonite', 100, '_images/_pokemon/_back/DRAGONITE.png', '_sounds/_pokemon/DRAGONITE.ogg', golpeAereo, hiperRayo, 134, 95);
-const gyarados = new Pokemon('Gyarados', 100, '_images/_pokemon/_back/GYARADOS.png', '_sounds/_pokemon/GYARADOS.ogg', hidrobomba, terremoto, 125, 79);
-const magnemite = new Pokemon('Magnemite', 100, '_images/_pokemon/_back/MAGNEMITE.png', '_sounds/_pokemon/MAGNEMITE.ogg', rayo, placaje, 35, 70);
-const mewtwo = new Pokemon('Mewtwo', 100, '_images/_pokemon/_back/MEWTWO.png', '_sounds/_pokemon/MEWTWO.ogg', psicoCorte, hiperRayo, 110, 90);
-const raichu = new Pokemon('Raichu', 100, '_images/_pokemon/_back/RAICHU.png', '_sounds/_pokemon/RAICHU.ogg', trueno, golpeCuerpo, 90, 55);
+const arceus = new Pokemon('Arceus', 100, 'images/pokemon/back/ARCEUS.png', 'sounds/pokemon/ARCEUS.ogg', hiperRayo, fuerzaBruta, 100, 85);
+const charizard = new Pokemon('Charizard', 100, 'images/pokemon/back/CHARIZARD.png', 'sounds/pokemon/CHARIZARD.ogg', lanzallamas, alaDeAcero, 84, 78);
+const dragonite = new Pokemon('Dragonite', 100, 'images/pokemon/back/DRAGONITE.png', 'sounds/pokemon/DRAGONITE.ogg', golpeAereo, hiperRayo, 134, 95);
+const gyarados = new Pokemon('Gyarados', 100, 'images/pokemon/back/GYARADOS.png', 'sounds/pokemon/GYARADOS.ogg', hidrobomba, terremoto, 125, 79);
+const magnemite = new Pokemon('Magnemite', 100, 'images/pokemon/back/MAGNEMITE.png', 'sounds/pokemon/MAGNEMITE.ogg', rayo, placaje, 35, 70);
+const mewtwo = new Pokemon('Mewtwo', 100, 'images/pokemon/back/MEWTWO.png', 'sounds/pokemon/MEWTWO.ogg', psicoCorte, hiperRayo, 110, 90);
+const raichu = new Pokemon('Raichu', 100, 'images/pokemon/back/RAICHU.png', 'sounds/pokemon/RAICHU.ogg', trueno, golpeCuerpo, 90, 55);
 
-const absol = new Pokemon('Absol', 100, '_images/_pokemon/_front/ABSOL.png', '_sounds/_pokemon/ABSOL.ogg', golpeCuerpo, hojaAfilada, 130, 60);
-const blastoise = new Pokemon('Blastoise', 100, '_images/_pokemon/_front/BLASTOISE.png', '_sounds/_pokemon/BLASTOISE.ogg', hidrobomba, chorroDeAgua, 83, 100);
-const jolteon = new Pokemon('Jolteon', 100, '_images/_pokemon/_front/JOLTEON.png', '_sounds/_pokemon/JOLTEON.ogg', rayo, trueno, 65, 60);
-const magmar = new Pokemon('Magmar', 100, '_images/_pokemon/_front/MAGMAR.png', '_sounds/_pokemon/MAGMAR.ogg', lanzallamas, giroFuego, 95, 57);
-const pidgeot = new Pokemon('Pidgeot', 100, '_images/_pokemon/_front/PIDGEOT.png', '_sounds/_pokemon/PIDGEOT.ogg', golpeAereo, alaDeAcero, 80, 75);
-const torterra = new Pokemon('Torterra', 100, '_images/_pokemon/_front/TORTERRA.png', '_sounds/_pokemon/TORTERRA.ogg', hojaAfilada, terremoto, 109, 105);
-const vaporeon = new Pokemon('Vaporeon', 100, '_images/_pokemon/_front/VAPOREON.png', '_sounds/_pokemon/VAPOREON.ogg', chorroDeAgua, hidrobomba, 65, 60);
+const absol = new Pokemon('Absol', 100, 'images/pokemon/front/ABSOL.png', 'sounds/pokemon/ABSOL.ogg', golpeCuerpo, hojaAfilada, 130, 60);
+const blastoise = new Pokemon('Blastoise', 100, 'images/pokemon/front/BLASTOISE.png', 'sounds/pokemon/BLASTOISE.ogg', hidrobomba, chorroDeAgua, 83, 100);
+const jolteon = new Pokemon('Jolteon', 100, 'images/pokemon/front/JOLTEON.png', 'sounds/pokemon/JOLTEON.ogg', rayo, trueno, 65, 60);
+const magmar = new Pokemon('Magmar', 100, 'images/pokemon/front/MAGMAR.png', 'sounds/pokemon/MAGMAR.ogg', lanzallamas, giroFuego, 95, 57);
+const pidgeot = new Pokemon('Pidgeot', 100, 'images/pokemon/front/PIDGEOT.png', 'sounds/pokemon/PIDGEOT.ogg', golpeAereo, alaDeAcero, 80, 75);
+const torterra = new Pokemon('Torterra', 100, 'images/pokemon/front/TORTERRA.png', 'sounds/pokemon/TORTERRA.ogg', hojaAfilada, terremoto, 109, 105);
+const vaporeon = new Pokemon('Vaporeon', 100, 'images/pokemon/front/VAPOREON.png', 'sounds/pokemon/VAPOREON.ogg', chorroDeAgua, hidrobomba, 65, 60);
 
 
 // Crear un arreglo con todos los Pokémon
@@ -175,7 +175,7 @@ function Continua() {
         mensajeTurno("Es tu turno!");
 
         // Reproducir música de batalla
-        const audioBatalla = new Audio('_sounds/_batalla/batallapokemon.mp3'); // Ruta de la canción
+        const audioBatalla = new Audio('sounds/batalla/batallapokemon.mp3'); // Ruta de la canción
         audioBatalla.volume = 0.3; // Ajusta el volumen
         audioBatalla.play().catch(error => {
             console.log("Error al reproducir la música:", error);
@@ -218,7 +218,7 @@ function reiniciarBatalla() {
     mensajeTurno("¡La batalla ha terminado! Elige un nuevo Pokémon para continuar.");
 
     // Reproducir música de batalla nuevamente
-    const audioBatalla = new Audio('_sounds/_batalla/batallapokemon.mp3'); // Ruta de la canción
+    const audioBatalla = new Audio('sounds/batalla/batallapokemon.mp3'); // Ruta de la canción
     audioBatalla.volume = 0.3; // Ajusta el volumen
     audioBatalla.play().catch(error => {
         console.log("Error al reproducir la música:", error);
@@ -234,7 +234,7 @@ function atacar(pokemonAtacante, movimiento) {
         return;
     }
 
-    const audioEscape = new Audio('_sounds/_batalla/battledamagenormal.ogg'); // Ruta del sonido de huida
+    const audioEscape = new Audio('sounds/batalla/battledamagenormal.ogg'); // Ruta del sonido de huida
         audioEscape.volume = 0.3;
         audioEscape.play().catch(error => {
             console.log("Error al reproducir el sonido:", error);
@@ -384,7 +384,7 @@ function Curarse() {
 
         if (puedeCurarse) {
 
-            const audioBatalla = new Audio('_sounds/healing.ogg'); // Ruta de la canción
+            const audioBatalla = new Audio('sounds/healing.ogg'); // Ruta de la canción
             audioBatalla.volume = 0.3; // Ajusta el volumen
             audioBatalla.play().catch(error => {
             console.log("Error al reproducir la música:", error);
@@ -417,7 +417,7 @@ function Salir() {
         mensajeTurno("Has huido de la batalla.");
 
         // Opcional: reproducir un sonido de huida
-        const audioEscape = new Audio('_sounds/scape.ogg'); // Ruta del sonido de huida
+        const audioEscape = new Audio('sounds/scape.ogg'); // Ruta del sonido de huida
         audioEscape.volume = 0.3;
         audioEscape.play().catch(error => {
             console.log("Error al reproducir el sonido:", error);
