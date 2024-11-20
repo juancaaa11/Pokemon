@@ -234,7 +234,7 @@ function atacar(pokemonAtacante, movimiento) {
         return;
     }
 
-    const audioEscape = new Audio('sounds/batalla/battledamagenormal.ogg'); // Ruta del sonido de huida
+    const audioEscape = new Audio('sounds/batalla/Battledamagenormal.ogg'); // Ruta del sonido de huida
         audioEscape.volume = 0.3;
         audioEscape.play().catch(error => {
             console.log("Error al reproducir el sonido:", error);
